@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartStudy Hub - Quản lý tự học & AI</title>
+    <!-- Sử dụng Tailwind CSS để làm giao diện đẹp nhanh chóng -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans flex h-screen overflow-hidden">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-slate-900 border-r border-slate-800 flex flex-col p-4">
+        <h1 class="text-xl font-bold text-indigo-400 mb-8 flex items-center gap-2">
+            <i class="fa-solid fa-graduation-cap"></i> SmartStudy AI
+        </h1>
+        <nav class="space-y-2 flex-1">
+            <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg bg-indigo-600 text-white font-medium"><i class="fa-solid fa-calendar-days"></i> Lịch học</a>
+            <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition"><i class="fa-solid fa-list-check"></i> Nhiệm vụ</a>
+            <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition"><i class="fa-solid fa-robot"></i> Trợ lý AI</a>
+            <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition"><i class="fa-solid fa-clock"></i> Pomodoro</a>
+        </nav>
+        <div class="text-xs text-slate-500 text-center py-2">Tự học là chìa khóa thành công</div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 flex flex-col overflow-y-auto">
+        <!-- Header -->
+        <header class="h-16 border-b border-slate-800 flex items-center justify-between px-8 bg-slate-900/50 backdrop-blur">
+            <h2 class="text-lg font-semibold">Bảng điều khiển tự học</h2>
+            <div class="flex items-center gap-4">
+                <span class="text-sm text-indigo-300 bg-indigo-950/50 px-3 py-1 rounded-full border border-indigo-800/50">Chế độ Tự học Online</span>
+            </div>
+        </header>
+
+        <!-- Dashboard Grid -->
+        <div class="p-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Cột Lịch học & Thay đổi lịch khi trục trặc -->
+            <section class="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-xl font-bold flex items-center gap-2 text-indigo-300">
+                        <i class="fa-solid fa-calendar-week"></i> Lịch học linh hoạt
+                    </h3>
+                    <button class="bg-indigo-600 hover:bg-indigo-500 px-4 py-2 rounded-lg text-sm font-medium transition flex items-center gap-2">
+                        <i class="fa-solid fa-plus"></i> Thêm lịch học
+                    </button>
+                </div>
+                <!-- Bảng hiển thị lịch mẫu -->
+                <div class="space-y-3">
+                    <div class="p-4 bg-slate-800/60 border border-slate-700/50 rounded-xl flex justify-between items-center">
+                        <div>
+                            <span class="text-xs font-semibold px-2 py-1 bg-blue-900 text-blue-200 rounded">08:00 - 10:00</span>
+                            <h4 class="font-bold mt-1">Học Tiếng Anh Global Success (Grade 10)</h4>
+                            <p class="text-sm text-slate-400">Từ vựng Unit & Luyện ngữ pháp</p>
+                        </div>
+                        <div class="flex gap-2">
+                            <button title="Chỉnh sửa/Dời lịch" class="p-2 text-slate-400 hover:text-white bg-slate-700/50 rounded-lg"><i class="fa-solid fa-pen"></i></button>
+                            <button title="Xóa" class="p-2 text-red-400 hover:text-red-300 bg-slate-700/50 rounded-lg"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Cột Khung Chat AI (Mô phỏng Gemini) -->
+            <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col h-[550px] shadow-xl">
+                <h3 class="text-xl font-bold mb-4 flex items-center gap-2 text-indigo-300">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> AI Trợ lý học tập
+                </h3>
+                <!-- Khung chat container -->
+                <div id="chat-box" class="flex-1 bg-slate-950/50 border border-slate-800 rounded-xl p-4 overflow-y-auto space-y-3 mb-4 text-sm">
+                    <div class="bg-slate-800 p-3 rounded-lg max-w-[85%]">
+                        Chào bạn! Tôi là trợ lý AI tích hợp trên web của bạn. Hôm nay bạn muốn tôi giúp giải bài tập Toán, Lý, Hóa hay lên lịch học bù môn gì nào?
+                    </div>
+                </div>
+                <!-- Ô nhập tin nhắn -->
+                <div class="flex gap-2">
+                    <input type="text" id="user-input" placeholder="Hỏi AI bất cứ điều gì..." class="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500">
+                    <button onclick="sendMessage()" class="bg-indigo-600 hover:bg-indigo-500 px-4 py-2.5 rounded-xl transition text-white">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        function sendMessage() {
+            const input = document.getElementById('user-input');
+            const chatBox = document.getElementById('chat-box');
+            if(!input.value.trim()) return;
+
+            // Thêm câu hỏi của người dùng
+            chatBox.innerHTML += `<div class="bg-indigo-600 text-white p-3 rounded-lg max-w-[85%] ml-auto">${input.value}</div>`;
+            const query = input.value;
+            input.value = '';
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            // Phản hồi giả lập (Bạn có thể thay bằng đoạn code fetch API của Google Gemini thực tế tại đây)
+            setTimeout(() => {
+                chatBox.innerHTML += `<div class="bg-slate-800 p-3 rounded-lg max-w-[85%]">AI đang xử lý yêu cầu: "${query}". Bạn có thể kết nối mã nguồn với Gemini API Key để nhận câu trả lời thông minh chính xác nhất!</div>`;
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
